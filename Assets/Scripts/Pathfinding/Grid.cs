@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid<TGridObject>
+public class Grid<TGridObject> : IGameService
 {
     public event EventHandler<OnGridObjectChangedEventArgs> OnGridObjectChanged;
     public class OnGridObjectChangedEventArgs : EventArgs
@@ -53,14 +53,14 @@ public class Grid<TGridObject>
         return cellSize;
     }
 
-    private void GetGridPosition(Vector3 worldPos, out int x, out int y)
+    public void GetGridPosition(Vector3 worldPos, out int x, out int y)
     {
         var relativePos = worldPos - originPos;
         x = Mathf.FloorToInt(relativePos.x / cellSize);
         y = Mathf.FloorToInt(relativePos.z / cellSize);
     }
 
-    private Vector3 GetWorldPosition(int x, int z)
+    public Vector3 GetWorldPosition(int x, int z)
     {
         return (new Vector3(x, 0f, z) * cellSize) + originPos;
     }
